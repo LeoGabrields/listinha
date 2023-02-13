@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
+import 'package:listinha/src/shared/stores/app_store.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appStore = context.watch<AppStore>((store) => store.syncDate);
+
+    final syncDate = appStore.syncDate.value;
+
+    var syncDateText = 'Nunca';
+
+    if (syncDate != null) {
+      final format = DateFormat('dd/MM/yyyy às hh:mm');
+      syncDateText = format.format(syncDate);
+    }
+
     return NavigationDrawer(
       onDestinationSelected: (index) {
         if (index == 1) {
@@ -21,15 +35,20 @@ class CustomDrawer extends StatelessWidget {
         ),
         NavigationDrawerDestination(
           icon: const Icon(Icons.sync),
-          label: Row(
-            children: [
-              const Text('Sincronizar'),
-              const SizedBox(width: 25),
-              Text(
-                '10/02/2023 às 21:04',
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
+          label: Expanded(
+            child: Row(
+              children: [
+                const Text('Sincronizar'),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(
+                    syncDateText,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         const NavigationDrawerDestination(
