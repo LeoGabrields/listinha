@@ -1,6 +1,7 @@
 import 'package:listinha/src/shared/services/realm/models/configuration_model.dart';
 import 'package:realm/realm.dart';
 
+
 abstract class ConfigurationService {
   ConfigurationModel getConfiguration();
   void saveConfiguration(String themeModeName, DateTime? syncDate);

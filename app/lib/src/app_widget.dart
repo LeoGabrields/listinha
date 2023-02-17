@@ -15,7 +15,6 @@ class AppWidget extends StatelessWidget {
     );
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       themeMode: appStore.themeMode.value,
       theme: lightTheme,
